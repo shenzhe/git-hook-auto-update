@@ -12,7 +12,7 @@ $http->set([
 $http->on('request', function ($request, $response) {
 
     $response->end('ok');
-    if(false !== strpos($request->server['path_info'], 'reload')) {
+    if(false !== strpos($request->server['path_info'], 'reload')) { //重启server,(可重载配置)
         global $http;
         $http->reload();
         return;
