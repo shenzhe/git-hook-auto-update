@@ -17,17 +17,18 @@ $http->on('request', function ($request, $response) {
         $http->reload();
         return;
     }
-    if(empty($request->post['hook'])) {
+    if(empty($request->post['payload'])) {
         mylog('hook data empty');
         return;
     }
-    $data = json_decode($request->post['hook'], true);
-    if(empty($data)) {
+    $datas = json_decode($request->post['payload'], true);
+    if(empty($datas['hook'])) {
         //错误的数据
         mylog('hook no json data');
         return;
     }
-    if(PASSWORD && $data['password'] != PASSWORD) {
+    $data = $datas['hook'];
+    if(PASSWORD && $data['config']['secret'] != PASSWORD) {
         //密码不匹配
         mylog('password error');
         return ;
